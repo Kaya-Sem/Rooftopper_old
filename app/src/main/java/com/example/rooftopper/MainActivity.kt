@@ -3,6 +3,9 @@ package com.example.rooftopper
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.core.LinearOutSlowInEasing
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -18,12 +21,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.coerceAtLeast
 import androidx.compose.ui.unit.dp
 import com.example.rooftopper.ui.theme.RooftopperTheme
 
@@ -67,7 +70,15 @@ fun Greetings(
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     var expanded by rememberSaveable { mutableStateOf(false) }
-    val extraPadding = if (expanded) 48.dp else 0.dp
+    val extraPadding by animateDpAsState(
+        if (expanded) 70.dp else 0.dp,
+        animationSpec = tween(
+            durationMillis = 100,
+            delayMillis = 25,
+            easing = LinearOutSlowInEasing
+
+        ), label = ""
+    )
 
     Surface(
         color = MaterialTheme.colorScheme.primary,
@@ -77,11 +88,12 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             Column(
                 modifier = Modifier
                     .weight(1f)
-                    .padding(bottom = extraPadding)
+                    .padding(bottom = extraPadding.coerceAtLeast(0.dp))
             ) {
-                Text(if (! expanded) "Hello " else "Hello stupid ")
+                Text("Hello")
                 Text(text = name)
             }
+
             ElevatedButton(
                 onClick = { expanded = !expanded}
             ) {
@@ -101,7 +113,7 @@ fun OnboardingScreen(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text("Welcome to Rooftopper!")
+        Text("Welcome to Rooftopper!", style = MaterialTheme.typography.headlineMedium)
         Button(
             modifier = Modifier.padding(vertical = 24.dp),
             onClick = onContinueClicked
@@ -115,7 +127,7 @@ fun OnboardingScreen(
 @Composable
 fun GreetingPreview() {
     RooftopperTheme {
-        Greeting(name = "Kaya-Sem")
+        Greeting(name = "Vic")
     }
 }
 
