@@ -3,6 +3,7 @@ package com.example.rooftopper
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.annotation.StringRes
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
@@ -11,10 +12,17 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.ExpandLess
+import androidx.compose.material.icons.filled.ExpandMore
 import androidx.compose.material3.Button
 import androidx.compose.material3.ElevatedButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -25,6 +33,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.coerceAtLeast
 import androidx.compose.ui.unit.dp
@@ -92,13 +101,22 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             ) {
                 Text("Hello")
                 Text(text = name)
+                
+                if (expanded) {
+                    Text(text = ("Composem ipsum color sit lazy, " +
+                            "padding theme elit, sed do bouncy. ").repeat(4))
+                }
             }
 
-            ElevatedButton(
-                onClick = { expanded = !expanded}
-            ) {
-                Text(if (expanded) "Show less" else "Show more")
+            IconButton(onClick = { expanded = ! expanded}) {
+                Icon(
+                    imageVector = if (expanded) Icons.Filled.ExpandLess else Icons.Filled.ExpandMore,
+                    contentDescription = stringResource(id = if (expanded) R.string.show_more else R.string.show_less),
+                    modifier = Modifier.size(20.dp)
+                )
+
             }
+
         }
     }
 }
