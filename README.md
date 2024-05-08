@@ -2,7 +2,7 @@
 
 
 ### Rooftopping locations near you!
-
+📷
 ## Filtering
 
 #### 🏗️ Categories
@@ -11,9 +11,9 @@
 - highrise
 - masts
 
-### Usage and downloading
+### 📱 Usage and downloading
 
-### Contributing
+### 🔧 Contributing
 
 
 ---
