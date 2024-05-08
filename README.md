@@ -10,3 +10,12 @@
 - cranes
 - highrise
 - masts
+
+### Usage and downloading
+
+### Contributing
+
+
+---
+
+todo: telegram link, discord, ...
