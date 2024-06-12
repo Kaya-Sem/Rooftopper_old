@@ -58,7 +58,9 @@ fun MyApp() {
 
     Surface {
 
-    if (shouldShowOnboarding) OnboardingScreen( onContinueClicked = {shouldShowOnboarding = false}) else Greetings()
+        if (shouldShowOnboarding) OnboardingScreen(onContinueClicked = {
+            shouldShowOnboarding = false
+        }) else Greetings()
 
     }
 }
@@ -66,11 +68,11 @@ fun MyApp() {
 @Composable
 fun Greetings(
     modifier: Modifier = Modifier,
-    names: List<String> = List(1000) { "$it"}
+    names: List<String> = List(1000) { "$it" }
 ) {
     LazyColumn(modifier = modifier.padding(vertical = 4.dp)) {
-        items(items = names) {name ->
-locationComposable(location = Location("Tapei Tower", "crane"), modifier = modifier)
+        items(items = names) { name ->
+            locationComposable(location = Location("Tapei Tower", "crane"), modifier = modifier)
         }
     }
 }
@@ -93,21 +95,24 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
                         dampingRatio = Spring.DampingRatioLowBouncy,
                         stiffness = Spring.StiffnessLow
                     )
-                )) {
+                )
+        ) {
             Column(
                 modifier = Modifier
                     .weight(1f)
             ) {
                 Text("Hello")
                 Text(text = name)
-                
+
                 if (expanded) {
-                    Text(text = ("Composem ipsum color sit lazy, " +
-                            "padding theme elit, sed do bouncy. ").repeat(4))
+                    Text(
+                        text = ("Composem ipsum color sit lazy, " +
+                                "padding theme elit, sed do bouncy. ").repeat(4)
+                    )
                 }
             }
 
-            IconButton(onClick = { expanded = ! expanded}) {
+            IconButton(onClick = { expanded = !expanded }) {
                 Icon(
                     imageVector = if (expanded) Icons.Filled.ExpandLess else Icons.Filled.ExpandMore,
                     contentDescription = stringResource(id = if (expanded) R.string.show_more else R.string.show_less),
@@ -123,7 +128,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 @Composable
 fun OnboardingScreen(
     modifier: Modifier = Modifier,
-    onContinueClicked : () -> Unit
+    onContinueClicked: () -> Unit
 ) {
     Column(
         modifier = modifier.fillMaxSize(),
@@ -138,6 +143,12 @@ fun OnboardingScreen(
             Text("Continue")
         }
     }
+}
+
+@Preview
+@Composable
+fun locationComposablePreview() {
+    locationComposable(location = Location("Tapei Tower", "crane"))
 }
 
 @Preview(showBackground = true, widthDp = 320)
