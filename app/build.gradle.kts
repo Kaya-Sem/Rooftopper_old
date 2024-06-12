@@ -48,6 +48,8 @@ android {
 
 dependencies {
 
+    implementation("org.jetbrains.kotlin:kotlin-stdlib")
+    implementation("org.postgresql:postgresql:42.7.3") // PostgreSQL JDBC driver
     implementation("androidx.compose.material:material-icons-extended")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
