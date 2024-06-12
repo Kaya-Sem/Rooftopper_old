@@ -1,4 +1,4 @@
-package com.example.rooftopper.ui.theme
+package com.rooftopper.ui.theme
 
 import android.app.Activity
 import android.os.Build

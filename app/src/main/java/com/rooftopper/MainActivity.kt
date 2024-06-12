@@ -1,12 +1,11 @@
-package com.example.rooftopper
+package com.rooftopper
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.annotation.StringRes
-import androidx.compose.animation.core.LinearOutSlowInEasing
-import androidx.compose.animation.core.animateDpAsState
-import androidx.compose.animation.core.tween
+import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -16,11 +15,10 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ExpandLess
 import androidx.compose.material.icons.filled.ExpandMore
 import androidx.compose.material3.Button
-import androidx.compose.material3.ElevatedButton
+import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -33,11 +31,12 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.coerceAtLeast
 import androidx.compose.ui.unit.dp
-import com.example.rooftopper.ui.theme.RooftopperTheme
+import com.example.rooftopper.R
+import com.rooftopper.ui.theme.RooftopperTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -79,25 +78,22 @@ fun Greetings(
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     var expanded by rememberSaveable { mutableStateOf(false) }
-    val extraPadding by animateDpAsState(
-        if (expanded) 70.dp else 0.dp,
-        animationSpec = tween(
-            durationMillis = 100,
-            delayMillis = 25,
-            easing = LinearOutSlowInEasing
 
-        ), label = ""
-    )
-
-    Surface(
-        color = MaterialTheme.colorScheme.primary,
-        modifier = modifier.padding(vertical = 4.dp, horizontal = 8.dp)
+    Card(
+        shape = MaterialTheme.shapes.medium,
+        modifier = modifier
+            .padding(vertical = 4.dp, horizontal = 8.dp)
+            .shadow(2.dp)
     ) {
-        Row(modifier = Modifier.padding(24.dp)) {
+        Row(
+            modifier = Modifier
+                .padding(24.dp)
+                .animateContentSize(
+                  animationSpec = spring(dampingRatio = Spring.DampingRatioLowBouncy, stiffness = Spring.StiffnessLow)
+                )) {
             Column(
                 modifier = Modifier
                     .weight(1f)
-                    .padding(bottom = extraPadding.coerceAtLeast(0.dp))
             ) {
                 Text("Hello")
                 Text(text = name)
@@ -156,7 +152,6 @@ fun OnboardingPreview() {
         OnboardingScreen(onContinueClicked = {}) // Do nothing on click.
     }
 }
-
 
 @Preview
 @Composable

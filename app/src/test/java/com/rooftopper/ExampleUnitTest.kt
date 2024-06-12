@@ -1,4 +1,4 @@
-package com.example.rooftopper
+package com.rooftopper
 
 import org.junit.Test
 
