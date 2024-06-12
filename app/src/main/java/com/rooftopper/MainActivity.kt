@@ -70,7 +70,7 @@ fun Greetings(
 ) {
     LazyColumn(modifier = modifier.padding(vertical = 4.dp)) {
         items(items = names) {name ->
-            Greeting(name = name)
+locationComposable(location = Location("Tapei Tower", "crane"), modifier = modifier)
         }
     }
 }
@@ -89,7 +89,10 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             modifier = Modifier
                 .padding(24.dp)
                 .animateContentSize(
-                  animationSpec = spring(dampingRatio = Spring.DampingRatioLowBouncy, stiffness = Spring.StiffnessLow)
+                    animationSpec = spring(
+                        dampingRatio = Spring.DampingRatioLowBouncy,
+                        stiffness = Spring.StiffnessLow
+                    )
                 )) {
             Column(
                 modifier = Modifier
